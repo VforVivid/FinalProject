@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
+using FinalProject.Models.Entities;
 
 namespace FinalProject.Services
 {
@@ -9,5 +10,7 @@ namespace FinalProject.Services
             : base(options)
         {
         }
+
+        public DbSet<Character> Characters => Set<Character>();
     }
 }
