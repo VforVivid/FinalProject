@@ -1,0 +1,87 @@
+﻿@model FinalProject.Models.Entities.Character
+
+@{
+    ViewData["Title"] = "Delete";
+}
+
+<h1>Delete</h1>
+
+<h3>Are you sure you want to delete this?</h3>
+<div>
+    <h4>Character</h4>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.FirstName)
+        </dt>
+        <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.FirstName)
+        </dd>
+        <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.Level)
+        </dt>
+        <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.Level)
+        </dd>
+        <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.Race)
+        </dt>
+        <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.Race)
+        </dd>
+        <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.Class)
+        </dt>
+        <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.Class)
+        </dd>
+        <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.ArmorClass)
+        </dt>
+        <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.ArmorClass)
+        </dd>
+        <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.Strength)
+        </dt>
+        <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.Strength)
+        </dd>
+        <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.Dexterity)
+        </dt>
+        <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.Dexterity)
+        </dd>
+        <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.Charisma)
+        </dt>
+        <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.Charisma)
+        </dd>
+        <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.Constitution)
+        </dt>
+        <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.Constitution)
+        </dd>
+        <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.Wisdom)
+        </dt>
+        <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.Wisdom)
+        </dd>
+        <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.Intelligence)
+        </dt>
+        <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.Intelligence)
+        </dd>
+    </dl>
+
+    <form asp-action="Delete">
+        <input asp-for="Id" type="hidden" />
+        <input type="submit" value="Delete" class="btn btn-danger" /> |
+        <a asp-action="Index">Back to List</a>
+    </form>
+</div>

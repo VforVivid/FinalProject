@@ -33,6 +33,11 @@
                 <span asp-validation-for="Class" class="text-danger"></span>
             </div>
             <div class="form-group">
+                <label asp-for="ArmorClass" class="control-label"></label>
+                <input asp-for="ArmorClass" class="form-control" />
+                <span asp-validation-for="ArmorClass" class="text-danger"></span>
+            </div>
+            <div class="form-group">
                 <label asp-for="Strength" class="control-label"></label>
                 <input asp-for="Strength" class="form-control" />
                 <span asp-validation-for="Strength" class="text-danger"></span>
@@ -51,11 +56,6 @@
                 <label asp-for="Constitution" class="control-label"></label>
                 <input asp-for="Constitution" class="form-control" />
                 <span asp-validation-for="Constitution" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="ArmorClass" class="control-label"></label>
-                <input asp-for="ArmorClass" class="form-control" />
-                <span asp-validation-for="ArmorClass" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="Wisdom" class="control-label"></label>
