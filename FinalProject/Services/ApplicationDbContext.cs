@@ -12,5 +12,8 @@ namespace FinalProject.Services
         }
 
         public DbSet<Character> Characters => Set<Character>();
+        public DbSet<Spell> Spells => Set<Spell>();
+        public DbSet<Item> Items => Set<Item>();
+        public DbSet<CharacterSpell> CharacterSpells => Set<CharacterSpell>();
     }
 }

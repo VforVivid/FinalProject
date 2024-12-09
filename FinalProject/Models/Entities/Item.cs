@@ -4,6 +4,7 @@ namespace FinalProject.Models.Entities
 {
     public class Item
     {
+        public int Id { get; set; }
         [StringLength(128)]
         public string Name { get; set; } = string.Empty;
         [StringLength(256)]

@@ -4,14 +4,16 @@ namespace FinalProject.Models.Entities
 {
     public class Spell
     {
+        public int Id { get; set; }
         [StringLength(64)]
-        string Name { get; set; } = string.Empty;
+        public string Name { get; set; } = string.Empty;
         [StringLength(256)]
-        string? Description { get; set; } = string.Empty;
+        public string? Description { get; set; } = string.Empty;
         [StringLength(256)]
-        string Components { get; set; } = string.Empty;
+        public string Components { get; set; } = string.Empty;
         [StringLength(64)]
-        string? Type { get; set; } = string.Empty;
-        int Level { get; set; }
+        public string? Type { get; set; } = string.Empty;
+        public int Level { get; set; }
+        public ICollection<CharacterSpell> SpellsCharacter { get; set; } = new List<CharacterSpell>();
     }
 }
