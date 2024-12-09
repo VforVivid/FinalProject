@@ -20,6 +20,7 @@ namespace FinalProject.Models.Entities
             public int Wisdom { get; set; }
             public int Intelligence { get; set; }
             public ICollection<CharacterSpell> CharacterSpells { get; set; } = new List<CharacterSpell>();
+            public ICollection<Item> Items { get; set; } = new List<Item>();
      
     }
 }

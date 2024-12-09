@@ -10,5 +10,7 @@ namespace FinalProject.Services
         Task<Character?> ReadAsync(int id);
         Task UpdateAsync(int oldId, Character character);
         Task DeleteAsync(int id);
+        Task<Item> CreateItemAsync(int characterId, Item item);
+        //Task<Spell> CreateSpellAsync(int characterId, Spell spell);
     }
 }

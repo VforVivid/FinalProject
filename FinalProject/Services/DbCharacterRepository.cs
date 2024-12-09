@@ -45,6 +45,8 @@ namespace FinalProject.Services
                 characterToUpdate.Wisdom = character.Wisdom;
                 characterToUpdate.Constitution = character.Constitution;
                 characterToUpdate.Strength = character.Strength;
+                characterToUpdate.Items = character.Items;
+                characterToUpdate.CharacterSpells = character.CharacterSpells;
                 await _db.SaveChangesAsync();
             }
         }
@@ -57,6 +59,18 @@ namespace FinalProject.Services
                 _db.Characters.Remove(characterToDelete);
                 await _db.SaveChangesAsync();
             }
+        }
+
+        public async Task<Item> CreateItemAsync(int characterId, Item item)
+        {
+            var character = await ReadAsync(characterId);
+            if (character != null)
+            {
+                character.Items.Add(item);
+                item.CharacterId = character.Id;
+                await _db.SaveChangesAsync();
+            }
+            return item;
         }
 
     }
