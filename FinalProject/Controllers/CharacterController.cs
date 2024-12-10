@@ -52,29 +52,14 @@ namespace FinalProject.Controllers
             return View(newCharacter);
         }
 
-        public async Task<IActionResult> Details(int id, CharacterDetailsVM characterDetailsVM)
+        public async Task<IActionResult> Details(int id)
         {
             var character = await _characterRepo.ReadAsync(id);
             if (character == null)
             {
                 return RedirectToAction("Index");
             }
-            var model = new CharacterDetailsVM
-            {
-                Id = character.Id,
-                FirstName = character.FirstName,
-                Level = character.Level,
-                Race = character.Race,
-                Class = character.Class,
-                ArmorClass = character.ArmorClass,
-                Strength = character.Strength,
-                Dexterity = character.Dexterity,
-                Charisma = character.Charisma,
-                Constitution = character.Constitution,
-                Wisdom = character.Wisdom,
-                Intelligence = character.Intelligence
-            };
-            return View(model);
+            return View(character);
         }
 
         public async Task<IActionResult> Edit(int id)
