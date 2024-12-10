@@ -27,7 +27,12 @@ namespace FinalProject.Services
 
         public async Task<Character?> ReadAsync(int id)
         {
-            return await _db.Characters.FindAsync(id);
+            var character = await _db.Characters.FindAsync(id);
+            if (character != null)
+            {
+                _db.Entry(character).Collection(p => p.Items).Load();
+            }
+            return character;
             //return await _db.People.FirstOrDefaultAsync((p) => p.Id == id);
         }
 

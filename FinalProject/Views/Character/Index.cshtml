@@ -18,7 +18,7 @@
             <th>
                 @Html.DisplayNameFor(model => model.Level)
             </th>
-            <th>Number of Spells</th>
+            <th>Number of Items</th>
             <th></th>
         </tr>
     </thead>
@@ -38,7 +38,7 @@
                         @Html.DisplayFor(modelItem => item.Level)
                     </td>
                     <td>
-                        @item.CharacterSpells.Count
+                        @item.Items.Count
                     </td>
                     <td>
                         <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |

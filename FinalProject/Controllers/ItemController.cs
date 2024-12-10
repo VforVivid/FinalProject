@@ -28,9 +28,40 @@ namespace FinalProject.Controllers
             return View(itemVM);
         }
 
-        public IActionResult Index()
+        [HttpPost, ValidateAntiForgeryToken]
+        public async Task<IActionResult> Create(int characterId, CreateItemVM itemVM)
         {
-            return View();
+            if (ModelState.IsValid)
+            {
+                var item = itemVM.GetItemInstance();
+                await _characterRepo.CreateItemAsync(characterId, item);
+                return RedirectToAction("Index", "Character");
+            }
+            itemVM.Character = await _characterRepo.ReadAsync(characterId);
+            return View(itemVM);
+        }
+
+        public async Task<IActionResult> Index()
+        {
+            var allCharacters = await _characterRepo.ReadAllAsync();
+            var model = allCharacters.Select(c =>
+            new CharacterDetailsVM
+            {
+                Id = c.Id,
+                FirstName = c.FirstName,
+                Level = c.Level,
+                Race = c.Race,
+                Class = c.Class,
+                ArmorClass = c.ArmorClass,
+                Strength = c.Strength,
+                Dexterity = c.Dexterity,
+                Charisma = c.Charisma,
+                Constitution = c.Constitution,
+                Wisdom = c.Wisdom,
+                Intelligence = c.Intelligence,
+                NumberOfItems = c.Items.Count
+            });
+            return View(model);
         }
     }
 }
