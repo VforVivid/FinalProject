@@ -72,7 +72,7 @@ namespace FinalProject.Services
             if (character != null)
             {
                 character.Items.Add(item);
-                item.CharacterId = character.Id;
+                item.Character = character;
                 await _db.SaveChangesAsync();
             }
             return item;

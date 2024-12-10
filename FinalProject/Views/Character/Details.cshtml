@@ -94,3 +94,69 @@
     @Html.ActionLink("Edit", "Edit", new { /* id = Model.PrimaryKey */ }) |
     <a asp-action="Index">Back to List</a>
 </div>
+
+@if (Model != null)
+{
+    <h4>Items</h4>
+    <a asp-action="Create" asp-controller="Item" asp-route-id="@Model.Id">
+        Add Item
+    </a>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>
+                    Id
+                </th>
+                <th>
+                    Name
+                </th>
+                <th>
+                    Value
+                </th>
+                <th>
+                    Description
+                </th>
+                <th>
+                    Type
+                </th>
+                <th>
+                    Weight
+                </th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model.Items)
+            {
+                <tr>
+                    <td>
+                        @item.Id
+                    </td>
+                    <td>
+                        @item.Name
+                    </td>
+                    <td>
+                        @item.Value
+                    </td>
+                    <td>
+                        @item.Description
+                    </td>
+                    <td>
+                        @item.Type
+                    </td>
+                    <td>
+                        @item.Weight
+                    </td>
+                    <td>
+                        <a asp-action="Edit" asp-controller="Item"
+                           asp-route-id="@Model.Id" asp-route-authorId="@item.Id">Edit</a> |
+                        <a asp-action="Delete" asp-controller="Item"
+                           asp-route-id="@Model.Id" asp-route-authorId="@item.Id">Delete</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+Page 6 of 17
+

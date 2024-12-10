@@ -15,7 +15,6 @@ namespace FinalProject.Models.ViewModels
         public int? Weight { get; set; }
         [StringLength(128)]
         public string? Type { get; set; } = string.Empty;
-        public int CharacterId { get; set; }
 
         public Item GetItemInstance()
         {
@@ -26,8 +25,7 @@ namespace FinalProject.Models.ViewModels
                 Description = this.Description,
                 Value = this.Value,
                 Weight = this.Weight,
-                Type = this.Type,
-                CharacterId = this.CharacterId,
+                Type = this.Type
             };
         }
     }

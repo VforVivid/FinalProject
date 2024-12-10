@@ -14,6 +14,7 @@ namespace FinalProject.Models.Entities
         [StringLength(128)]
         public string? Type { get; set; } = string.Empty;
         public int CharacterId { get; set; }
+        public Character? Character { get; set; }
 
     }
 }

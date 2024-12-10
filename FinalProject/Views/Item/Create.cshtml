@@ -2,9 +2,10 @@
 
 @{
     var character = Model.Character;
-    ViewData["Title"] = $"Creating Item for {character?.FirstName}";
+    ViewData["Title"] = $"Creating Item for {character!.FirstName}";
 }
 
+<h1>@ViewData["Title"]</h1>
 
 <h4>Create Item</h4>
 <hr />
@@ -12,6 +13,7 @@
     <div class="col-md-4">
         <form asp-action="Create">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input name="characterId" value="@character!.Id" type="hidden" />
             <div class="form-group">
                 <label asp-for="Name" class="control-label"></label>
                 <input asp-for="Name" class="form-control" />
@@ -37,7 +39,7 @@
                 <input asp-for="Type" class="form-control" />
                 <span asp-validation-for="Type" class="text-danger"></span>
             </div>
-            <div class="form-group">
+            <div class="form-group mt-2">
                 <input type="submit" value="Create" class="btn btn-primary" />
             </div>
         </form>
