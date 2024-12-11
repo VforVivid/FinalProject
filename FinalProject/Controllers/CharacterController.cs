@@ -39,6 +39,8 @@ namespace FinalProject.Controllers
             });
             return View(model);
         }
+
+        [Authorize(Roles = "Guest")]
         public IActionResult Create()
         {
             return View();
@@ -71,7 +73,7 @@ namespace FinalProject.Controllers
             var character = await _characterRepo.ReadAsync(id);
             if (character == null)
             {
-                return RedirectToAction("Index");
+                return RedirectToAction("Details");
             }
             return View(character);
         }
@@ -82,7 +84,7 @@ namespace FinalProject.Controllers
             if (ModelState.IsValid)
             {
                 await _characterRepo.UpdateAsync(character.Id, character);
-                return RedirectToAction("Index");
+                return RedirectToAction("Details");
             }
             return View(character);
         }

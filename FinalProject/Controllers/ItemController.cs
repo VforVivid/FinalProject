@@ -17,13 +17,13 @@ namespace FinalProject.Controllers
             _characterRepo = characterRepo;
         }
 
-        [Authorize(Roles = "Player, DMs")]
+        [Authorize(Roles = "Player, DM")]
         public async Task<IActionResult> Create([Bind(Prefix = "id")] int characterId)
         {
             var character = await _characterRepo.ReadAsync(characterId);
             if (character == null)
             {
-                return RedirectToAction("Index", "Character");
+                return RedirectToAction("Details", "Character");
             }
             var itemVM = new CreateItemVM
             {
@@ -39,25 +39,25 @@ namespace FinalProject.Controllers
             {
                 var item = itemVM.GetItemInstance();
                 await _characterRepo.CreateItemAsync(characterId, item);
-                return RedirectToAction("Index", "Character");
+                return RedirectToAction("Details", "Character");
             }
             itemVM.Character = await _characterRepo.ReadAsync(characterId);
             return View(itemVM);
         }
 
-
+        [Authorize(Roles = "Player, DM")]
         public async Task<IActionResult> Edit([Bind(Prefix = "id")] int characterId, int itemId)
         {
             var character = await _characterRepo.ReadAsync(characterId);
             if (character == null)
             {
-                return RedirectToAction("Index", "Character");
+                return RedirectToAction("Details", "Character");
             }
             var item = character.Items.FirstOrDefault(i => i.Id == itemId);
             if (item == null)
             {
                 return RedirectToAction(
-                    "Details", "Character", new { id = characterId });
+                    "Details", "Character");
             }
             var model = new EditItemVM
             {
@@ -79,12 +79,13 @@ namespace FinalProject.Controllers
             {
                 var item = itemVM.GetItemInstance();
                 await _characterRepo.UpdateItemAsync(characterId, item);
-                return RedirectToAction("Details", "Character", new { id = characterId });
+                return RedirectToAction("Details", "Character");
             }
             itemVM.Character = await _characterRepo.ReadAsync(characterId);
             return View(itemVM);
         }
 
+        [Authorize(Roles = "Player, DM")]
         public async Task<IActionResult> Delete([Bind(Prefix = "id")] int characterId, int itemId)
         {
             var character = await _characterRepo.ReadAsync(characterId);

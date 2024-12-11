@@ -7,23 +7,17 @@
 <link rel="stylesheet" href="css/site.css">
 
 
-<p>
-    <a asp-action="Create" class="btn btn-sm btn-warning">Create New</a>
-</p>
 <div class="container my-5">
     <div class="mb-3">
         <div class="input-group">
-            <input type="text"
-                   id="searchBox"
-                   class="form-control search-box"
-                   placeholder="Search for a character by name">
-            <button class="btn btn-custom input-group-text"
-                    onclick="filterTable()">
-                Search
-            </button>
+            <input type="text" id="searchBox" class="form-control search-box" placeholder="Search">
+            <button class="btn btn-custom input-group-text" onclick="filterTable()"> Search </button>
         </div>
     </div>
-    </div>
+</div>
+<p>
+    <a asp-action="Create" class="btn btn-sm btn-warning">Create New</a>
+</p>
     <div class="table-responsive">
     <table id="characterTable" class="table table-bordered shadow" style="background-color: #ffe9c7;">
         <thead class="thead-light">
@@ -109,9 +103,9 @@
             </td>
             <td>
                 <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-sm btn-warning">Edit</a>
-                    <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-sm btn-warning">Details</a>
+                <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-sm btn-warning">Details</a>
+                <a asp-action="Create" asp-controller="Item" asp-route-id="@item.Id" class="btn btn-sm btn-warning">Add Item</a>
                 <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-sm btn-danger">Delete</a>
-                    <a asp-action="Create" asp-controller="Item" asp-route-id="@item.Id" class="btn btn-sm btn-warning">Add Item</a>
             </td>
         </tr>
 }

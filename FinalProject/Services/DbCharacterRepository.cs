@@ -49,7 +49,6 @@ namespace FinalProject.Services
                 characterToUpdate.Wisdom = character.Wisdom;
                 characterToUpdate.Constitution = character.Constitution;
                 characterToUpdate.Strength = character.Strength;
-                characterToUpdate.Items = character.Items;
                 characterToUpdate.CharacterSpells = character.CharacterSpells;
                 await _db.SaveChangesAsync();
             }

@@ -90,14 +90,14 @@
     </dl>
 </div>
 <div>
-    <a asp-action="Edit" asp-route-id="@Model.Id"> Edit </a> |
-    <a asp-action="Index">Back to List</a>
+    <a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-sm btn-warning"> Edit </a> |
+    <a asp-action="Index" class="btn btn-sm btn-warning">Back to List</a>
 </div>
 
 @if (Model != null)
 {
     <h4>Items</h4>
-    <a asp-action="Create" asp-controller="Item" asp-route-id="@Model.Id">
+    <a asp-action="Create" asp-controller="Item" asp-route-id="@Model.Id" class="btn btn-sm btn-warning">
         Add Item
     </a>
     <table class="table">
@@ -148,9 +148,9 @@
                     </td>
                     <td>
                         <a asp-action="Edit" asp-controller="Item"
-                           asp-route-id="@Model.Id" asp-route-itemId="@item.Id">Edit</a> |
+                           asp-route-id="@Model.Id" asp-route-itemId="@item.Id" class="btn btn-sm btn-warning">Edit</a> |
                         <a asp-action="Delete" asp-controller="Item"
-                           asp-route-id="@Model.Id" asp-route-itemId="@item.Id">Delete</a>
+                           asp-route-id="@Model.Id" asp-route-itemId="@item.Id" class="btn btn-sm btn-warning">Delete</a>
                     </td>
                 </tr>
             }
