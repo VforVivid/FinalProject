@@ -2,6 +2,8 @@
 using FinalProject.Models.ViewModels;
 using FinalProject.Services;
 using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json.Linq;
+using System.Net;
 
 namespace FinalProject.Controllers
 {
@@ -41,27 +43,81 @@ namespace FinalProject.Controllers
             return View(itemVM);
         }
 
-        public async Task<IActionResult> Index()
+
+        public async Task<IActionResult> Edit([Bind(Prefix = "id")] int characterId, int itemId)
         {
-            var allCharacters = await _characterRepo.ReadAllAsync();
-            var model = allCharacters.Select(c =>
-            new CharacterDetailsVM
+            var character = await _characterRepo.ReadAsync(characterId);
+            if (character == null)
             {
-                Id = c.Id,
-                FirstName = c.FirstName,
-                Level = c.Level,
-                Race = c.Race,
-                Class = c.Class,
-                ArmorClass = c.ArmorClass,
-                Strength = c.Strength,
-                Dexterity = c.Dexterity,
-                Charisma = c.Charisma,
-                Constitution = c.Constitution,
-                Wisdom = c.Wisdom,
-                Intelligence = c.Intelligence,
-                NumberOfItems = c.Items.Count
-            });
+                return RedirectToAction("Index", "Character");
+            }
+            var item = character.Items.FirstOrDefault(i => i.Id == itemId);
+            if (item == null)
+            {
+                return RedirectToAction(
+                    "Details", "Character", new { id = characterId });
+            }
+            var model = new EditItemVM
+            {
+                Character = character,
+                Id = item.Id,
+                Name = item.Name,
+                Description = item.Description,
+                Value = item.Value,
+                Weight = item.Weight,
+                Type = item.Type
+            };
             return View(model);
         }
+
+        [HttpPost, ValidateAntiForgeryToken]
+        public async Task<IActionResult> Edit(int characterId, EditItemVM itemVM)
+        {
+            if (ModelState.IsValid)
+            {
+                var item = itemVM.GetItemInstance();
+                await _characterRepo.UpdateItemAsync(characterId, item);
+                return RedirectToAction("Details", "Character", new { id = characterId });
+            }
+            itemVM.Character = await _characterRepo.ReadAsync(characterId);
+            return View(itemVM);
+        }
+
+        public async Task<IActionResult> Delete([Bind(Prefix = "id")] int characterId, int itemId)
+        {
+            var character = await _characterRepo.ReadAsync(characterId);
+            if (character == null)
+            {
+                return RedirectToAction("Index", "Character");
+            }
+            var item = character.Items.FirstOrDefault(i => i.Id == itemId);
+            if (item == null)
+            {
+                return RedirectToAction(
+                    "Details", "Character");
+            }
+            var model = new DeleteItemVM
+            {
+                Character = character,
+                Id = item.Id,
+                Name = item.Name,
+                Description = item.Description,
+                Weight = item.Weight,
+                Value = item.Value,
+                Type = item.Type
+            };
+            return View(model);
+        }
+
+        [HttpPost, ActionName("Delete"), ValidateAntiForgeryToken]
+        public async Task<IActionResult> DeleteConfirmed(int id, int characterId)
+        {
+            await _characterRepo.DeleteItemAsync(characterId, id);
+            return RedirectToAction("Details", "Character");
+        }
+
     }
+
+
 }
+

@@ -20,7 +20,7 @@ namespace FinalProject.Models.ViewModels
         public int Intelligence { get; set; }
         [DisplayName("Number of Items")]
         public int NumberOfItems { get; set; }
-        public ICollection<Item> Items { get; set; }
+        public ICollection<Item> Items { get; set; } = new List<Item>();
 
     }
 }

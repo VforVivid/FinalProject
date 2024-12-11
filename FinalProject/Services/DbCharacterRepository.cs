@@ -78,5 +78,39 @@ namespace FinalProject.Services
             return item;
         }
 
+        public async Task UpdateItemAsync(int characterId, Item item)
+        {
+            var character = await ReadAsync(characterId);
+            if (character != null)
+            {
+                var itemToUpdate = character.Items.FirstOrDefault(i => i.Id == item.Id);
+                if (itemToUpdate != null)
+                {
+                    itemToUpdate.Name = item.Name;
+                    itemToUpdate.Description = item.Description;
+                    itemToUpdate.Value = item.Value;
+                    itemToUpdate.Weight = item.Weight;
+                    itemToUpdate.Type = item.Type;
+                    await _db.SaveChangesAsync();
+                }
+            }
+        }
+
+        public async Task DeleteItemAsync(int characterId, int itemId)
+        {
+            var character = await ReadAsync(characterId);
+            if (character != null)
+            {
+                var item = character.Items
+                    .FirstOrDefault(i => i.Id == itemId);
+                if (item != null)
+                {
+                    character.Items.Remove(item);
+                    await _db.SaveChangesAsync();
+                }
+            }
+        }
+
+
     }
 }

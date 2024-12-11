@@ -32,7 +32,9 @@ namespace FinalProject.Controllers
                     Charisma = c.Charisma,
                     Constitution = c.Constitution,
                     Wisdom = c.Wisdom,
-                    Intelligence = c.Intelligence
+                    Intelligence = c.Intelligence,
+                    Items = c.Items,
+                    NumberOfItems = c.Items.Count
             });
             return View(model);
         }
