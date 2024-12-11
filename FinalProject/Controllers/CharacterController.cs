@@ -40,7 +40,7 @@ namespace FinalProject.Controllers
             return View(model);
         }
 
-        [Authorize(Roles = "Guest")]
+        [Authorize(Roles = "DM, Player, Guest")]
         public IActionResult Create()
         {
             return View();
