@@ -32,8 +32,7 @@ namespace FinalProject.Services
             {
                 _db.Entry(character).Collection(p => p.Items).Load();
             }
-            return character;
-            //return await _db.People.FirstOrDefaultAsync((p) => p.Id == id);
+            return await _db.Characters.Include(c => c.Items).FirstOrDefaultAsync(c => c.Id == id);
         }
 
         public async Task UpdateAsync(int oldId, Character character)
@@ -86,6 +85,7 @@ namespace FinalProject.Services
                 var itemToUpdate = character.Items.FirstOrDefault(i => i.Id == item.Id);
                 if (itemToUpdate != null)
                 {
+
                     itemToUpdate.Name = item.Name;
                     itemToUpdate.Description = item.Description;
                     itemToUpdate.Value = item.Value;

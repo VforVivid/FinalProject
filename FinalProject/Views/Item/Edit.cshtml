@@ -18,7 +18,8 @@
             <input type="hidden" name="characterId" value="@character.Id" />
             <div class="form-group">
                 <label asp-for="Id" class="control-label"></label>
-                <input asp-for="Id" readonly class="form-control" />
+                <input asp-for="Id" value="@Model.Id"
+                       readonly class="form-control" />
                 <span asp-validation-for="Id" class="text-danger"></span>
             </div>
             <div class="form-group">
