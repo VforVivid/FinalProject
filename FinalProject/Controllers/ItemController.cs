@@ -1,6 +1,7 @@
 ﻿using FinalProject.Models.Entities;
 using FinalProject.Models.ViewModels;
 using FinalProject.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json.Linq;
 using System.Net;
@@ -16,6 +17,7 @@ namespace FinalProject.Controllers
             _characterRepo = characterRepo;
         }
 
+        [Authorize(Roles = "Player, DMs")]
         public async Task<IActionResult> Create([Bind(Prefix = "id")] int characterId)
         {
             var character = await _characterRepo.ReadAsync(characterId);

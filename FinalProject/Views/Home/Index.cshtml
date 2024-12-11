@@ -1,8 +1,56 @@
 ﻿@{
-    ViewData["Title"] = "Home Page";
+    ViewData["Title"] = "Home";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+<link rel="stylesheet" href="/css/custom-theme.css"> <!-- Link to Custom CSS -->
+
+<div class="container mt-5">
+    <!-- Hero Section -->
+    <div class="jumbotron text-center custom-hero">
+        <h1 class="display-4">Welcome to Party Manager!</h1>
+        <p class="lead">Manage your party, assign roles, and explore characters with ease.</p>
+    </div>
+
+    <!-- Button Navigation Section -->
+    <section class="mt-5">
+        <div class="row text-center">
+            <!-- Party Section -->
+            <div class="col-md-4">
+                <div class="card shadow border-0 custom-card">
+                    <div class="card-body">
+                        <h5 class="card-title">Party List</h5>
+                        <p class="card-text">See the list of accounts in your party, and their role</p>
+                        <a href="@Url.Action("Index", "User")" class="btn btn-custom" aria-label="Go to Party Management Page">
+                            <i class="fas fa-users"></i> Go to Party
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <!-- Add Role Section -->
+            <div class="col-md-4">
+                <div class="card shadow border-0 custom-card">
+                    <div class="card-body">
+                        <h5 class="card-title">Assign Roles</h5>
+                        <p class="card-text">Assign roles to users to manage their permissions.</p>
+                        <a href="@Url.Action("AddRole", "Home")" class="btn btn-custom" aria-label="Go to Add Role Page">
+                            <i class="fas fa-user-shield"></i> Add Role
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <!-- Character Section -->
+            <div class="col-md-4">
+                <div class="card shadow border-0 custom-card">
+                    <div class="card-body">
+                        <h5 class="card-title">Character Hub</h5>
+                        <p class="card-text">View and update your characters.</p>
+                        <a href="@Url.Action("Index", "Character")" class="btn btn-custom" aria-label="Go to Character Hub Page">
+                            <i class="fas fa-user"></i> Characters
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
 </div>

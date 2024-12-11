@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace FinalProject.Controllers
 {
-   
+    
     public class UserController : Controller
     {
         private readonly IUserRepository _userRepo;
@@ -15,6 +15,7 @@ namespace FinalProject.Controllers
             _userRepo = userRepo;
         }
 
+        [Authorize(Roles = "DM")]
         public async Task<IActionResult> Index()
         {
             var users = await _userRepo.ReadAllAsync();
@@ -28,5 +29,6 @@ namespace FinalProject.Controllers
             });
             return View(userList);
         }
+
     }
 }

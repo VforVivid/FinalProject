@@ -20,3 +20,41 @@ html {
 body {
   margin-bottom: 60px;
 }
+
+
+.custom-hero {
+    background: linear-gradient(135deg, #FFC107, #FF5722); 
+    color: white;
+    padding: 2.5rem 1rem;
+    border-radius: 10px;
+}
+
+
+.custom-card {
+    background-color: #FFF3E0; 
+    border-radius: 10px;
+    transition: transform 0.2s ease-in-out;
+}
+
+    .custom-card:hover {
+        transform: scale(1.05); 
+    }
+
+
+.btn-custom {
+    background-color: #FF5722;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 0.5rem 1rem;
+}
+
+    .btn-custom:hover {
+        background-color: #E64A19;
+        color: #FFF3E0;
+    }
+
+
+    .btn-custom:focus {
+        outline: 3px solid #FFC107; 
+    }

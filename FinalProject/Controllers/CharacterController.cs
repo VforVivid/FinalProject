@@ -3,6 +3,7 @@ using FinalProject.Services;
 using FinalProject.Models.Entities;
 using System;
 using FinalProject.Models.ViewModels;
+using Microsoft.AspNetCore.Authorization;
 
 namespace FinalProject.Controllers
 {
@@ -64,6 +65,7 @@ namespace FinalProject.Controllers
             return View(character);
         }
 
+        [Authorize(Roles = "Player, DMs")]
         public async Task<IActionResult> Edit(int id)
         {
             var character = await _characterRepo.ReadAsync(id);
@@ -84,7 +86,7 @@ namespace FinalProject.Controllers
             }
             return View(character);
         }
-
+        [Authorize(Roles = "Player, DM")]
         public async Task<IActionResult> Delete(int id)
         {
             var character = await _characterRepo.ReadAsync(id);

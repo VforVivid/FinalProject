@@ -1,6 +1,8 @@
 using FinalProject.Models;
 using FinalProject.Models.Entities;
+using FinalProject.Models.ViewModels;
 using FinalProject.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
 using System.Text;
@@ -32,9 +34,36 @@ namespace FinalProject.Controllers
             return Content("No user");
         }
 
+        [Authorize(Roles = "DM")]
+        [HttpGet]
+        public IActionResult AddRole()
+        {
+            return View(new AddRoleVM());
+        }
 
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> AddRole(AddRoleVM model)
+        {
+            if (ModelState.IsValid)
+            {
+                var user = await _userRepo.ReadByUsernameAsync(model.Email);
+                if (user == null)
+                {
+                    ModelState.AddModelError("", "User not found.");
+                    return View(model);
+                }
 
-        public IActionResult Index()
+                await _userRepo.AssignUserToRoleAsync(model.Email, model.RoleName);
+                TempData["Success"] = $"Role '{model.RoleName}' assigned to user '{model.Email}'.";
+                return RedirectToAction("Index");
+            }
+
+            return View(model);
+        }
+    
+
+    public IActionResult Index()
         {
             return View();
         }
