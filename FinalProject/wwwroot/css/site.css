@@ -18,9 +18,9 @@ html {
 }
 
 body {
-  margin-bottom: 60px;
+    margin-bottom: 60px;
+    background-color: #ede3da;
 }
-
 
 .custom-hero {
     background: linear-gradient(135deg, #FFC107, #FF5722); 
@@ -36,9 +36,9 @@ body {
     transition: transform 0.2s ease-in-out;
 }
 
-    .custom-card:hover {
-        transform: scale(1.05); 
-    }
+.custom-card:hover {
+    transform: scale(1.05); 
+}
 
 
 .btn-custom {
@@ -49,12 +49,35 @@ body {
     padding: 0.5rem 1rem;
 }
 
-    .btn-custom:hover {
-        background-color: #E64A19;
-        color: #FFF3E0;
-    }
+.btn-custom:hover {
+    background-color: #E64A19;
+    color: #FFF3E0;
+}
 
 
-    .btn-custom:focus {
-        outline: 3px solid #FFC107; 
-    }
+.btn-custom:focus {
+    outline: 3px solid #FFC107; 
+}
+
+.search-box {
+    font-size: 1.2rem;
+    padding: 10px;
+    border: 2px solid #8B0000;
+    border-radius: 5px;
+}
+
+
+.custom-table {
+    background-color: #FFEFD5; 
+    border-color: #8B0000; 
+}
+
+.custom-table th,
+.custom-table td {
+    border: 2px solid #8B0000;
+}
+
+
+.custom-table thead {
+    background-color: #FAE1D9;
+}

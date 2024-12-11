@@ -4,52 +4,71 @@
     ViewData["Title"] = "Index";
 }
 
+<link rel="stylesheet" href="css/site.css">
+
+
 <p>
-    <a asp-action="Create">Create New</a>
+    <a asp-action="Create" class="btn btn-sm btn-warning">Create New</a>
 </p>
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Id)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.FirstName)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Level)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Race)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Class)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Strength)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Dexterity)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Charisma)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Constitution)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.ArmorClass)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Wisdom)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Intelligence)
-            </th>
-            <th></th>
-        </tr>
+<div class="container my-5">
+    <div class="mb-3">
+        <div class="input-group">
+            <input type="text"
+                   id="searchBox"
+                   class="form-control search-box"
+                   placeholder="Search for a character by name">
+            <button class="btn btn-custom input-group-text"
+                    onclick="filterTable()">
+                Search
+            </button>
+        </div>
+    </div>
+    </div>
+    <div class="table-responsive">
+    <table id="characterTable" class="table table-bordered shadow" style="background-color: #ffe9c7;">
+        <thead class="thead-light">
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.Id)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.FirstName)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Level)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Race)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Class)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Strength)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Dexterity)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Charisma)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Constitution)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.ArmorClass)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Wisdom)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Intelligence)
+                </th>
+                <th></th>
+            </tr>
     </thead>
     <tbody>
+
 @foreach (var item in Model) {
         <tr>
             <td>
@@ -89,12 +108,36 @@
                 @Html.DisplayFor(modelItem => item.Intelligence)
             </td>
             <td>
-                <a asp-action="Edit" asp-route-id="@item.Id"> Edit </a> |
-                <a asp-action="Details" asp-route-id="@item.Id"> Details </a> |
-                <a asp-action="Delete" asp-route-id="@item.Id"> Delete </a> |
-                <a asp-action="Create" asp-controller = "Item" asp-route-id="@item.Id"> Add Item </a> 
+                <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-sm btn-warning">Edit</a>
+                    <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-sm btn-warning">Details</a>
+                <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-sm btn-danger">Delete</a>
+                    <a asp-action="Create" asp-controller="Item" asp-route-id="@item.Id" class="btn btn-sm btn-warning">Add Item</a>
             </td>
         </tr>
 }
     </tbody>
 </table>
+
+</div>
+</div>
+<script>
+    function filterTable() {
+        let input = document.getElementById('searchBox').value.toUpperCase();
+        let table = document.getElementById('characterTable');
+        let rows = table.getElementsByTagName('tr');
+
+        for (let i = 1; i < rows.length; i++) {
+            let cells = rows[i].getElementsByTagName('td');
+            let match = false;
+
+            for (let j = 0; j < cells.length; j++) {
+                if (cells[j].innerText.toUpperCase().indexOf(input) > -1) {
+                    match = true;
+                    break;
+                }
+            }
+
+            rows[i].style.display = match ? '' : 'none';
+        }
+    }
+</script>
