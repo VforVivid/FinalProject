@@ -65,7 +65,7 @@ namespace FinalProject.Controllers
             return View(character);
         }
 
-        [Authorize(Roles = "Player, DMs")]
+        [Authorize(Roles = "Player,DM")]
         public async Task<IActionResult> Edit(int id)
         {
             var character = await _characterRepo.ReadAsync(id);
