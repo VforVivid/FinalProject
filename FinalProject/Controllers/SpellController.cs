@@ -1,4 +1,5 @@
-﻿using FinalProject.Services;
+﻿using FinalProject.Models.ViewModels;
+using FinalProject.Services;
 using Microsoft.AspNetCore.Mvc;
 
 namespace FinalProject.Controllers
@@ -20,19 +21,33 @@ namespace FinalProject.Controllers
             return View(allSpells);
         }
 
-        public async Task<IActionResult> Learn([Bind(Prefix = "id")] int characterId)
-        {
-            var character = await _characterRepo.ReadAsync(characterId);
-            if (character == null)
-            {
-                return RedirectToAction("Index", "Character");
-            }
-            var allSpells = await _spellRepo.ReadAllAsync();
-            var spellsLearned = character.CharacterSpells
-                .Select(s => s.Spell).ToList();
-            var spellsNotLearned = allSpells.Except(spellsLearned);
-            ViewData["Character"] = character;
-            return View(spellsNotLearned);
-        }
+        //    public async Task<IActionResult> Learn(int characterId)
+        //    {
+        //        var character = await _characterRepo.ReadAsync(characterId);
+        //        if (character == null)
+        //        {
+        //            return RedirectToAction("Details", "Character");
+        //        }
+        //        var spellVM = new CreateSpellVM
+        //        {
+        //            Character = character,
+        //        };
+        //        return View(spellVM);
+        //    }
+
+        //    [HttpPost, ValidateAntiForgeryToken]
+        //    public async Task<IActionResult> Learn(int characterId, CreateSpellVM spellVM)
+        //    {
+        //        if (ModelState.IsValid)
+        //        {
+        //            var spell = spellVM.GetSpellInstance();
+        //            await _characterRepo.CreateSpellAsync(characterId, spell);
+        //            return RedirectToAction("Details", "Character");
+        //        }
+        //        itemVM.Character = await _characterRepo.ReadAsync(characterId);
+        //        return View(itemVM);
+        //    }
+        //}
+
     }
 }

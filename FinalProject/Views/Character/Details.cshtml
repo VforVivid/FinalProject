@@ -158,3 +158,69 @@
     </table>
 }
 
+<a asp-action="Create" asp-controller="CharacterSpell" asp-route-id="@Model!.Id">Learn Spell</a> |
+<a asp-action="Index" asp-controller="CharacterSpell">Character's Spells</a> |
+
+@if (Model != null)
+{
+    <h4>Spells</h4>
+    <a asp-action="Create" asp-controller="CharacterSpell" asp-route-id="@Model.Id" class="btn btn-sm btn-warning">
+        Add Spell
+    </a>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>
+                    Id
+                </th>
+                <th>
+                    Name
+                </th>
+                <th>
+                    Level
+                </th>
+                <th>
+                    Description
+                </th>
+                <th>
+                    Type
+                </th>
+                <th>
+                    Components
+                </th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var spell in Model.CharacterSpells)
+            {
+                <tr>
+                    <td>
+                        @spell.Spell.Id
+                    </td>
+                    <td>
+                        @spell.Spell.Name
+                    </td>
+                    <td>
+                        @spell.Spell.Level
+                    </td>
+                    <td>
+                        @spell.Spell.Description
+                    </td>
+                    <td>
+                        @spell.Spell.Type
+                    </td>
+                    <td>
+                        @spell.Spell.Components
+                    </td>
+                    <td>
+                        <a asp-action="Edit" asp-controller="Spell"
+                           asp-route-id="@Model.Id" asp-route-spellId="@spell.Id" class="btn btn-sm btn-warning">Edit</a> |
+                        <a asp-action="Delete" asp-controller="Spell"
+                           asp-route-id="@Model.Id" asp-route-spellId="@spell.Id" class="btn btn-sm btn-warning">Delete</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}

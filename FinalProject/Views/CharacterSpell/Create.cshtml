@@ -1,0 +1,23 @@
+﻿@model CharacterSpellVM
+
+@{
+    var character = Model.Character;
+    ViewData["Title"] = $"Creating Spell for {character!.FirstName}";
+}
+
+<h1>Learn</h1>
+
+<form asp-action="Learn" id="formLearnSpell">
+    <input type="hidden" name="CharacterId" value="@Model.Character.Id" />
+    <input type="hidden" name="SpellId" value="@Model.Spell.Id" />
+    <input type="submit" value="Learn" class="btn btn-danger" /> |
+    <a asp-action="Create" asp-controller="Spell"
+       asp-route-id="@Model!.Character!.Id">Don't Learn</a>
+</form>
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

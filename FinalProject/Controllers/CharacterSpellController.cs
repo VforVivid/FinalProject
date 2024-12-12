@@ -23,26 +23,26 @@ namespace FinalProject.Controllers
             return View();
         }
 
-        public async Task<IActionResult> Create([Bind(Prefix = "id")] int id, int spellId)
+        public async Task<IActionResult> Create([Bind(Prefix = "id")] int characterId, [Bind(Prefix = "id")] int spellId)
         {
-            var character = await _characterRepo.ReadAsync(id);
+            var character = await _characterRepo.ReadAsync(characterId);
             if (character == null)
             {
-                return RedirectToAction("Index", "Character");
+                return RedirectToAction("Index", "Spell");
             }
 
             var spell = await _spellRepo.ReadAsync(spellId);
             if (spell == null)
             {
-                return RedirectToAction("Details", "Character");
+                return RedirectToAction("Index", "Character");
             }
 
-            var characterSpell = character.CharacterSpells
-                .SingleOrDefault(c => c.SpellId == spellId);
-            if (characterSpell == null)
-            {
-                return RedirectToAction("Details", "Character");
-            }
+            //var characterSpell = character.CharacterSpells
+            //    .SingleOrDefault(c => c.SpellId == spellId);
+            //if (characterSpell == null)
+            //{
+            //    return RedirectToAction("Index", "Character");
+            //}
 
             var characterSpellVM = new CharacterSpellVM
             {
@@ -59,28 +59,28 @@ namespace FinalProject.Controllers
             return RedirectToAction("Details", "Character");
         }
 
-        public async Task<IActionResult> LearnSpell([Bind(Prefix = "id")] int id, int spellId)
-        {
-            var character = await _characterRepo.ReadAsync(id);
-            if (character == null)
-            {
-                return RedirectToAction("Index", "Character");
-            }
-            var characterSpell = character.CharacterSpells
-                .FirstOrDefault(s => s.SpellId == spellId);
-            if(characterSpell == null)
-            {
-                RedirectToAction("Details", "Character");
-            }
-            return View(characterSpell);
-        }
+        //public async Task<IActionResult> LearnSpell([Bind(Prefix = "id")] int id, int spellId)
+        //{
+        //    var character = await _characterRepo.ReadAsync(id);
+        //    if (character == null)
+        //    {
+        //        return RedirectToAction("Index", "Character");
+        //    }
+        //    var characterSpell = character.CharacterSpells
+        //        .FirstOrDefault(s => s.SpellId == spellId);
+        //    if(characterSpell == null)
+        //    {
+        //        RedirectToAction("Details", "Character");
+        //    }
+        //    return View(characterSpell);
+        //}
 
-        [HttpPost, ValidateAntiForgeryToken, ActionName("LearnSpell")]
-        public async Task<IActionResult> LearnSpellConfirmed(int id, int characterSpellId, Spell spell)
-        {
-            await _characterSpellRepo.UpdateCharacterSpellAsync(characterSpellId, spell);
-            return RedirectToAction("Details", "Character");
-        }
+        //[HttpPost, ValidateAntiForgeryToken, ActionName("LearnSpell")]
+        //public async Task<IActionResult> LearnSpellConfirmed(int id, int characterSpellId, Spell spell)
+        //{
+        //    await _characterSpellRepo.UpdateCharacterSpellAsync(characterSpellId, spell);
+        //    return RedirectToAction("Details", "Character");
+        //}
 
         public async Task<IActionResult> Remove(int id, int spellId)
         {
