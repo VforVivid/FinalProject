@@ -1,4 +1,5 @@
-﻿using FinalProject.Models.ViewModels;
+﻿using FinalProject.Models.Entities;
+using FinalProject.Models.ViewModels;
 using FinalProject.Services;
 using Microsoft.AspNetCore.Mvc;
 
@@ -21,33 +22,60 @@ namespace FinalProject.Controllers
             return View(allSpells);
         }
 
-        //    public async Task<IActionResult> Learn(int characterId)
-        //    {
-        //        var character = await _characterRepo.ReadAsync(characterId);
-        //        if (character == null)
-        //        {
-        //            return RedirectToAction("Details", "Character");
-        //        }
-        //        var spellVM = new CreateSpellVM
-        //        {
-        //            Character = character,
-        //        };
-        //        return View(spellVM);
-        //    }
+        public IActionResult Create()
+        {
+            return View(new Spell());
+        }
 
-        //    [HttpPost, ValidateAntiForgeryToken]
-        //    public async Task<IActionResult> Learn(int characterId, CreateSpellVM spellVM)
-        //    {
-        //        if (ModelState.IsValid)
-        //        {
-        //            var spell = spellVM.GetSpellInstance();
-        //            await _characterRepo.CreateSpellAsync(characterId, spell);
-        //            return RedirectToAction("Details", "Character");
-        //        }
-        //        itemVM.Character = await _characterRepo.ReadAsync(characterId);
-        //        return View(itemVM);
-        //    }
-        //}
+        [HttpPost] [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Create(Spell spell)
+        {
+            if (ModelState.IsValid)
+            {
+                await _spellRepo.CreateAsync(spell);
+                return RedirectToAction(nameof(Index)); 
+            }
+            return View(spell);
+        }
 
+        public async Task<IActionResult> Edit(int id)
+        {
+            var spell = await _spellRepo.ReadAsync(id);
+            if (spell == null)
+            {
+                return NotFound();
+            }
+            return View(spell);
+        }
+
+        [HttpPost] [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Edit(Spell spell)
+        {
+            if (ModelState.IsValid)
+            {
+                await _spellRepo.UpdateAsync(spell);
+                return RedirectToAction(nameof(Index));
+            }
+            return View(spell);
+        }
+
+        public async Task<IActionResult> Delete(int id)
+        {
+            var spell = await _spellRepo.ReadAsync(id);
+            if (spell == null)
+            {
+                return NotFound();
+            }
+            return View(spell);
+        }
+
+        [HttpPost, ActionName("Delete")] [ValidateAntiForgeryToken]
+        public async Task<IActionResult> DeleteConfirmed(int id)
+        {
+            await _spellRepo.DeleteAsync(id);
+            return RedirectToAction(nameof(Index));
+        }
     }
+
 }
+

@@ -1,0 +1,53 @@
+﻿@model FinalProject.Models.Entities.Spell
+
+@{
+    var character = ViewData["Character"] as FinalProject.Models.Entities.Character;
+    ViewData["Title"] = $"Unassign Spell from {character.FirstName}";
+}
+
+<h1>Unassign Spell</h1>
+
+<h3>Are you sure you want to unassign this spell from @character.FirstName?</h3>
+
+<div>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Name)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Name)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Description)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Description)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Components)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Components)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Type)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Type)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Level)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Level)
+        </dd>
+    </dl>
+
+    <form asp-action="Remove" method="post">
+        <input type="hidden" name="characterId" value="@character.Id" />
+        <input type="hidden" name="spellId" value="@Model.Id" />
+        <button type="submit" class="btn btn-danger">Unassign Spell</button> |
+        <a asp-action="Details" asp-controller="Character" asp-route-id="@character.Id" class="btn btn-secondary">Back to Character Details</a>
+    </form>
+</div>

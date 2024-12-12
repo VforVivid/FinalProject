@@ -5,6 +5,7 @@ namespace FinalProject.Models.ViewModels
 {
     public class CreateSpellVM
     {
+        public Spell? Spell { get; set; }
         public Character? Character { get; set; }
         public int Id { get; set; }
         [StringLength(64)]

@@ -78,13 +78,14 @@ namespace FinalProject.Services
 
         public async Task RemoveAsync(int characterId, int spellId)
         {
-            var character = await _characterRepo.ReadAsync(characterId);
-            var characterSpell = character!.CharacterSpells
-                .FirstOrDefault(sc => sc.SpellId == spellId);
-            var spell = characterSpell!.Spell;
-            character!.CharacterSpells.Remove(characterSpell);
-            spell!.SpellsCharacter.Remove(characterSpell);
-            await _db.SaveChangesAsync();
+            var characterSpell = await _db.CharacterSpells
+                .FirstOrDefaultAsync(cs => cs.CharacterId == characterId && cs.SpellId == spellId);
+
+            if (characterSpell != null)
+            {
+                _db.CharacterSpells.Remove(characterSpell);
+                await _db.SaveChangesAsync();
+            }
         }
     }
 }

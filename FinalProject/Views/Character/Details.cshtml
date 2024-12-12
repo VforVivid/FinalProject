@@ -158,9 +158,6 @@
     </table>
 }
 
-<a asp-action="Create" asp-controller="CharacterSpell" asp-route-id="@Model!.Id">Learn Spell</a> |
-<a asp-action="Index" asp-controller="CharacterSpell">Character's Spells</a> |
-
 @if (Model != null)
 {
     <h4>Spells</h4>
@@ -214,10 +211,7 @@
                         @spell.Spell.Components
                     </td>
                     <td>
-                        <a asp-action="Edit" asp-controller="Spell"
-                           asp-route-id="@Model.Id" asp-route-spellId="@spell.Id" class="btn btn-sm btn-warning">Edit</a> |
-                        <a asp-action="Delete" asp-controller="Spell"
-                           asp-route-id="@Model.Id" asp-route-spellId="@spell.Id" class="btn btn-sm btn-warning">Delete</a>
+                        <a asp-action="Remove" asp-controller="CharacterSpell" asp-route-characterId="@Model.Id" asp-route-spellId="@spell.Id" class="btn btn-danger">Unassign</a>
                     </td>
                 </tr>
             }

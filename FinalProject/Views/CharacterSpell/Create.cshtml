@@ -1,19 +1,28 @@
-﻿@model CharacterSpellVM
+﻿@model FinalProject.Models.ViewModels.CharacterSpellVM
 
 @{
-    var character = Model.Character;
-    ViewData["Title"] = $"Creating Spell for {character!.FirstName}";
+    ViewData["Title"] = $"Assign a Spell to {Model.Character.FirstName}";
 }
 
-<h1>Learn</h1>
+<h1>Assign a Spell</h1>
 
-<form asp-action="Learn" id="formLearnSpell">
-    <input type="hidden" name="CharacterId" value="@Model.Character.Id" />
-    <input type="hidden" name="SpellId" value="@Model.Spell.Id" />
-    <input type="submit" value="Learn" class="btn btn-danger" /> |
-    <a asp-action="Create" asp-controller="Spell"
-       asp-route-id="@Model!.Character!.Id">Don't Learn</a>
+<form asp-action="Create" method="post">
+    <input type="hidden" name="characterId" value="@Model.Character.Id" />
+
+    <div class="form-group">
+        <label for="spellId">Available Spells</label>
+        <select id="spellId" name="spellId" class="form-control" required>
+            @foreach (var spell in Model.AvailableSpells)
+            {
+                <option value="@spell.Id">@spell.Name</option>
+            }
+        </select>
+    </div>
+
+    <button type="submit" class="btn btn-primary">Assign Spell</button>
+    <a asp-action="Details" asp-controller="Character" asp-route-id="@Model.Character.Id" class="btn btn-secondary">Cancel</a>
 </form>
+
 <div>
     <a asp-action="Index">Back to List</a>
 </div>

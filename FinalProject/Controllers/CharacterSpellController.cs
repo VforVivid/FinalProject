@@ -23,85 +23,65 @@ namespace FinalProject.Controllers
             return View();
         }
 
-        public async Task<IActionResult> Create([Bind(Prefix = "id")] int characterId, [Bind(Prefix = "id")] int spellId)
+        public async Task<IActionResult> Create([Bind(Prefix = "id")] int characterId)
         {
             var character = await _characterRepo.ReadAsync(characterId);
             if (character == null)
             {
-                return RedirectToAction("Index", "Spell");
+                return RedirectToAction("Index", "Character");
             }
 
-            var spell = await _spellRepo.ReadAsync(spellId);
-            if (spell == null)
+            var allSpells = await _spellRepo.ReadAllAsync();
+            if (allSpells == null)
             {
                 return RedirectToAction("Index", "Character");
             }
 
-            //var characterSpell = character.CharacterSpells
-            //    .SingleOrDefault(c => c.SpellId == spellId);
-            //if (characterSpell == null)
-            //{
-            //    return RedirectToAction("Index", "Character");
-            //}
+            var assignedSpells = character.CharacterSpells
+                    .Select(cs => cs.Spell)
+                        .ToList();
+
+            var unassignedSpells = allSpells
+                .Except(assignedSpells)
+                    .ToList();
 
             var characterSpellVM = new CharacterSpellVM
             {
                 Character = character,
-                Spell = spell,
+                AvailableSpells = unassignedSpells,
             };
             return View(characterSpellVM);
         }
 
         [HttpPost, ValidateAntiForgeryToken, ActionName("Create")]
-        public async Task<IActionResult> CreateConfirmed(int id, int spellId)
+        public async Task<IActionResult> CreateConfirmed(int characterId, int spellId)
         {
-            await _characterSpellRepo.CreateAsync(id, spellId);
+            await _characterSpellRepo.CreateAsync(characterId, spellId);
             return RedirectToAction("Details", "Character");
         }
 
-        //public async Task<IActionResult> LearnSpell([Bind(Prefix = "id")] int id, int spellId)
-        //{
-        //    var character = await _characterRepo.ReadAsync(id);
-        //    if (character == null)
-        //    {
-        //        return RedirectToAction("Index", "Character");
-        //    }
-        //    var characterSpell = character.CharacterSpells
-        //        .FirstOrDefault(s => s.SpellId == spellId);
-        //    if(characterSpell == null)
-        //    {
-        //        RedirectToAction("Details", "Character");
-        //    }
-        //    return View(characterSpell);
-        //}
-
-        //[HttpPost, ValidateAntiForgeryToken, ActionName("LearnSpell")]
-        //public async Task<IActionResult> LearnSpellConfirmed(int id, int characterSpellId, Spell spell)
-        //{
-        //    await _characterSpellRepo.UpdateCharacterSpellAsync(characterSpellId, spell);
-        //    return RedirectToAction("Details", "Character");
-        //}
-
-        public async Task<IActionResult> Remove(int id, int spellId)
+        public async Task<IActionResult> Remove(int characterId, int spellId)
         {
-            var character = await _characterRepo.ReadAsync(id);
-            if(character == null)
+            var character = await _characterRepo.ReadAsync(characterId);
+            if (character == null)
+            {
+                return RedirectToAction("Index", "Character");
+            }
+
+            var spell = await _spellRepo.ReadAsync(spellId);
+            if (spell == null)
             {
                 return RedirectToAction("Details", "Character");
             }
-            var characterSpell = character.CharacterSpells
-                .FirstOrDefault(s => s.SpellId == spellId);
-            if (characterSpell == null)
-            {
-                return RedirectToAction("Details", "Character");
-            }
-            return View(characterSpell);
+
+            ViewData["Character"] = character;
+            return View(spell);
         }
 
         [HttpPost, ValidateAntiForgeryToken, ActionName("Remove")]
-        public async Task<IActionResult> RemoveConfirmed(int id, int characterSpellId)
+        public async Task<IActionResult> RemoveConfirmed(int characterId, int spellId)
         {
-            await _characterSpellRepo.RemoveAsync(id, characterSpellId);
+            await _characterSpellRepo.RemoveAsync(characterId, spellId);
             return RedirectToAction("Details", "Character");
         }
     }
