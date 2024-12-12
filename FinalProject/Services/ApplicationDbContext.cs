@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using FinalProject.Models.Entities;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore.Diagnostics;
 
 namespace FinalProject.Services
 {
@@ -10,6 +11,13 @@ namespace FinalProject.Services
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
             : base(options)
         {
+           
+        }
+
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        {
+            optionsBuilder
+                .ConfigureWarnings(w => w.Ignore(CoreEventId.NavigationBaseIncludeIgnored));
         }
 
         public DbSet<Character> Characters => Set<Character>();

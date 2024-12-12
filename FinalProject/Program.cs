@@ -19,6 +19,9 @@ builder.Services.AddDefaultIdentity<ApplicationUser>(options => options.SignIn.R
 builder.Services.AddControllersWithViews();
 
 builder.Services.AddScoped<IUserRepository, DbUserRepository>();
+builder.Services.AddScoped<ICharacterRepository, DbCharacterRepository>();
+builder.Services.AddScoped<ISpellRepository, DbSpellRepository>();
+builder.Services.AddScoped<ICharacterSpellRepository, DbCharacterSpellRepository>();
 builder.Services.AddScoped<Initializer>();
 
 builder.Services.AddDbContext<ApplicationDbContext>(options => {

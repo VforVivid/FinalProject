@@ -15,7 +15,11 @@ namespace FinalProject.Services
 
         public async Task<ICollection<Character>> ReadAllAsync()
         {
-            return await _db.Characters.ToListAsync();
+            return await _db.Characters
+                .Include(c => c.Items)
+                .Include(cs => cs.CharacterSpells)
+                    .ThenInclude(s => s.Spell)
+                .ToListAsync();
         }
 
         public async Task<Character> CreateAsync(Character newCharacter)
@@ -32,7 +36,11 @@ namespace FinalProject.Services
             {
                 _db.Entry(character).Collection(p => p.Items).Load();
             }
-            return await _db.Characters.Include(c => c.Items).FirstOrDefaultAsync(c => c.Id == id);
+            return await _db.Characters
+                .Include(cs => cs.CharacterSpells)
+                    .ThenInclude(s => s.Spell)
+                .Include(c => c.Items)
+                .FirstOrDefaultAsync(c => c.Id == id);
         }
 
         public async Task UpdateAsync(int oldId, Character character)
