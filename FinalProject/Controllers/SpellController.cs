@@ -1,6 +1,7 @@
 ﻿using FinalProject.Models.Entities;
 using FinalProject.Models.ViewModels;
 using FinalProject.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace FinalProject.Controllers
@@ -22,6 +23,7 @@ namespace FinalProject.Controllers
             return View(allSpells);
         }
 
+        [Authorize(Roles = "DM")]
         public IActionResult Create()
         {
             return View(new Spell());
@@ -38,6 +40,7 @@ namespace FinalProject.Controllers
             return View(spell);
         }
 
+        [Authorize(Roles = "DM")]
         public async Task<IActionResult> Edit(int id)
         {
             var spell = await _spellRepo.ReadAsync(id);
@@ -59,6 +62,7 @@ namespace FinalProject.Controllers
             return View(spell);
         }
 
+        [Authorize(Roles = "DM")]
         public async Task<IActionResult> Delete(int id)
         {
             var spell = await _spellRepo.ReadAsync(id);

@@ -8,6 +8,6 @@ namespace FinalProject.Services
         Task<ICollection<CharacterSpell>> ReadAllAsync();
         Task<CharacterSpell?> CreateAsync(int id, int spellId);
         Task UpdateCharacterSpellAsync(int characterSpellId, Spell spell);
-        Task RemoveAsync(int id, int characterSpellId);
+        Task RemoveAsync(int characterId, int spellId);
     }
 }

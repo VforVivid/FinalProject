@@ -211,7 +211,7 @@
                         @spell.Spell.Components
                     </td>
                     <td>
-                        <a asp-action="Remove" asp-controller="CharacterSpell" asp-route-characterId="@Model.Id" asp-route-spellId="@spell.Id" class="btn btn-danger">Unassign</a>
+                        <a asp-action="Remove" asp-controller="CharacterSpell" asp-route-characterId="@Model.Id" asp-route-spellId="@spell.Spell.Id" class="btn btn-danger">Unassign</a>
                     </td>
                 </tr>
             }

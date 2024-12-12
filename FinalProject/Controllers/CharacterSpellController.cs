@@ -1,6 +1,7 @@
 ﻿using FinalProject.Models.Entities;
 using FinalProject.Models.ViewModels;
 using FinalProject.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace FinalProject.Controllers
@@ -23,6 +24,7 @@ namespace FinalProject.Controllers
             return View();
         }
 
+        [Authorize(Roles = "Player, DM")]
         public async Task<IActionResult> Create([Bind(Prefix = "id")] int characterId)
         {
             var character = await _characterRepo.ReadAsync(characterId);
@@ -60,6 +62,7 @@ namespace FinalProject.Controllers
             return RedirectToAction("Details", "Character");
         }
 
+        [Authorize(Roles = "Player, DM")]
         public async Task<IActionResult> Remove(int characterId, int spellId)
         {
             var character = await _characterRepo.ReadAsync(characterId);

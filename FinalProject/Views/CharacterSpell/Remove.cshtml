@@ -44,10 +44,10 @@
         </dd>
     </dl>
 
-    <form asp-action="Remove" method="post">
-        <input type="hidden" name="characterId" value="@character.Id" />
-        <input type="hidden" name="spellId" value="@Model.Id" />
-        <button type="submit" class="btn btn-danger">Unassign Spell</button> |
+    <form asp-action="Remove">
+        <input asp-for="Id" type="hidden" value="@Model.Id" />
+        <input name="characterId" value="@character.Id" type="hidden" />
+        <input type="submit" value="Unassign" class="btn btn-danger" /> |
         <a asp-action="Details" asp-controller="Character" asp-route-id="@character.Id" class="btn btn-secondary">Back to Character Details</a>
     </form>
 </div>
