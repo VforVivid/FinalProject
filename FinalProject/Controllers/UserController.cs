@@ -23,7 +23,7 @@ namespace FinalProject.Controllers
             .Select(u => new UserListVM
             {
                 Email = u.Email,
-                Username = u.UserName,
+                FirstName = u.FirstName,
                 NumberOfRoles = u.Roles.Count,
                 RoleNames = string.Join(",", u.Roles.ToArray())
             });

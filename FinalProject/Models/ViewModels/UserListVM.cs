@@ -6,6 +6,8 @@ namespace FinalProject.Models.ViewModels
     {
         public string? Email { get; set; } = string.Empty;
         public string? Username { get; set; } = string.Empty;
+        [Display(Name = "Name")]
+        public string? FirstName { get; set; } = string.Empty;
         [Display(Name = "Number of roles")]
         public int NumberOfRoles { get; set; }
         [Display(Name = "Role names")]
